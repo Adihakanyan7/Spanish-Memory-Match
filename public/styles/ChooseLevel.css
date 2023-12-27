@@ -1,0 +1,44 @@
+.choose-level-form {
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.choose-level-form label {
+  display: block;
+  margin-bottom: 10px;
+  color: #333;
+  font-weight: bold;
+}
+.choose-level-form select {
+  width: 100%;
+  padding: 8px 10px;
+  margin-top: 5px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+.choose-level-form select:focus {
+  outline: none;
+  border-color: #44a8db;
+}
+
+.choose-level-form button {
+  background-color: #f5ba13; /* Match with your theme color */
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  margin: 10px 5px; /* Spacing around the button */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Change cursor to pointer on hover */
+  font-size: 1em; /* Adjust size as needed */
+  transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+.choose-level-form button:hover {
+  background-color: #e49b0f; /* Slightly darker shade for hover effect */
+}
+
+/* You might need to add a class or unique identifier if you have more than one form */

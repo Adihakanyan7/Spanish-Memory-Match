@@ -1,9 +1,6 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import App from "./components/App";
+import React from 'react';
+import ReactDOM from 'react-dom/client'; // Import from 'react-dom/client'
+import App from './components/App';
 
-ReactDOM.render(<App />, document.getElementById("root"));
-    
-
-
-// TODO make a components opening that have option to: level , catgories of words 
+const root = ReactDOM.createRoot(document.getElementById('root')); // Use createRoot
+root.render(<App />);
