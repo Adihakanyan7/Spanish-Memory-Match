@@ -3,7 +3,8 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from "./Header";
 import Footer from "./Footer";
 import OpeningGame from "../games/openingGame";
-import MemoryGame from "../games/optionGame/MemoryGame";
+import MemoryGame from "../games/optionGame/MemoryGame/openMemoryGame";
+import MatchGame from "../games/optionGame/MatchGame/openMatchGame";
 
 function App() {
   const [gameNames, setGameNames] = useState(["Memory Card", "Matching"]);
@@ -17,8 +18,9 @@ function App() {
     <Router>
       <Header />
       <Routes>
-        <Route path="/game" element={<OpeningGame gameNames={gameNames} />} />
+        <Route path="/" element={<OpeningGame gameNames={gameNames} />} />
         <Route path="/game/memory-card" element={<MemoryGame />} />
+        <Route path="/game/matching" element={<MatchGame />} />
         {/* Define routes for other games */}
       </Routes>
       <Footer />

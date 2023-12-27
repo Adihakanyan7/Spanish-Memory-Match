@@ -1,10 +1,10 @@
 import React from "react";
-
+import ChooseLevel from "../chooseLevel";
 function MemoryGame(props){
 
      return (
         <div>
-          <h1>MemoryGame</h1>
+          <ChooseLevel />
         </div>
      );
 }
