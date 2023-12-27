@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from 'react-router-dom';
-
+import wordDate from "../../public/"
 
 function GameOption(props) {
   const navigate = useNavigate();
@@ -60,7 +60,7 @@ function GameOption(props) {
 
         <button onClick={(event)=>{
           event.preventDefault();
-          props.onPlay(props.content.level, props.content.category);
+          // props.onPlay(props.content.level, props.content.category);
           props.setContent({ level: "", category: "" });
           }}>
             Play

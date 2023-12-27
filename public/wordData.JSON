@@ -1,0 +1,133 @@
+{
+    "Colors": [
+        {"Spanish": "Negro", "Hebrew": "שחור"},
+        {"Spanish": "Blanco", "Hebrew": "לבן"},
+        {"Spanish": "Amarillo", "Hebrew": "צהוב"},
+        {"Spanish": "Azul", "Hebrew": "כחול"},
+        {"Spanish": "Rojo", "Hebrew": "אדום"},
+        {"Spanish": "Verde", "Hebrew": "ירוק"},
+        {"Spanish": "Naranja", "Hebrew": "כתום"},
+        {"Spanish": "Violeta", "Hebrew": "סגול"},
+        {"Spanish": "Púrpura", "Hebrew": "ארגמן"},
+        {"Spanish": "Rosa", "Hebrew": "ורוד"},
+        {"Spanish": "Gris", "Hebrew": "אפור"},
+        {"Spanish": "Marrón", "Hebrew": "חום"},
+        {"Spanish": "Plateado", "Hebrew": "כסוף"},
+        {"Spanish": "Dorado", "Hebrew": "זהב"},
+        {"Spanish": "Limón", "Hebrew": "לימון"},
+        {"Spanish": "Lima", "Hebrew": "ליים"},
+        {"Spanish": "Mostaza", "Hebrew": "חרדל"},
+        {"Spanish": "Lavanda", "Hebrew": "לבנדר"},
+        {"Spanish": "Lila", "Hebrew": "לילך"},
+        {"Spanish": "Salmón", "Hebrew": "סלמון"},
+        {"Spanish": "Fucsia", "Hebrew": "פוקסיה"},
+        {"Spanish": "Magenta", "Hebrew": "מגנטה"},
+        {"Spanish": "Escarlata", "Hebrew": "שני"},
+        {"Spanish": "Borgoña", "Hebrew": "בורדו"}
+    ],
+    "Basic Expressions": [
+        {"Spanish": "Sí", "Hebrew": "כן"},
+        {"Spanish": "No", "Hebrew": "לא"},
+        {"Spanish": "Quizás", "Hebrew": "אולי"},
+        {"Spanish": "Claro", "Hebrew": "כמובן"},
+        {"Spanish": "Gracias", "Hebrew": "תודה"},
+        {"Spanish": "De nada", "Hebrew": "אין בעד מה"},
+        {"Spanish": "Hola", "Hebrew": "שלום"},
+        {"Spanish": "Adiós", "Hebrew": "להתראות"},
+        {"Spanish": "¿Quién?", "Hebrew": "מי?"},
+        {"Spanish": "¿Qué?", "Hebrew": "מה?"},
+        {"Spanish": "¿Por qué?", "Hebrew": "למה?"},
+        {"Spanish": "¿Dónde?", "Hebrew": "איפה?"},
+        {"Spanish": "¿Cuándo?", "Hebrew": "מתי?"},
+        {"Spanish": "¿Cómo?", "Hebrew": "איך?"}
+      ],
+      "Greetings": [
+        {"Spanish": "Hola, mucho gusto", "Hebrew": "היי, נעים להכיר"},
+        {"Spanish": "Saludos", "Hebrew": "ברכות"},
+        {"Spanish": "Buenos días", "Hebrew": "בוקר טוב"},
+        {"Spanish": "Buenas tardes", "Hebrew": "צהריים טובים"},
+        {"Spanish": "Buenas noches", "Hebrew": "לילה טוב"},
+        {"Spanish": "Hola, ¿cómo le va?", "Hebrew": "היי, איך אתה?"},
+        {"Spanish": "Hola, un placer", "Hebrew": "היי, זה עונג"},
+        {"Spanish": "Encantado/a", "Hebrew": "נעים להכיר"}
+      ],
+      "Casual Greetings": [
+        {"Spanish": "¿Qué onda?", "Hebrew": "מה קורה?"},
+        {"Spanish": "¿Qué hay de nuevo?", "Hebrew": "מה חדש?"},
+        {"Spanish": "¿Qué tal?", "Hebrew": "מה קורה?/מה שלומך?"},
+        {"Spanish": "¿Cómo va todo?", "Hebrew": "איך הכל הולך?"},
+        {"Spanish": "Hola, qué gusto", "Hebrew": "היי, איזה עונג"},
+        {"Spanish": "¡Cuídate mucho!", "Hebrew": "תטפל בעצמך היטב!"},
+        {"Spanish": "¡Hasta luego!", "Hebrew": "נתראה מאוחר יותר!"}
+      ],
+      "Conversation Starters": [
+        {"Spanish": "¿Cómo te llamas?", "Hebrew": "מה שמך?"},
+        {"Spanish": "¿De dónde eres?", "Hebrew": "מאיפה אתה?"},
+        {"Spanish": "¿Dónde vives?", "Hebrew": "איפה אתה גר?"},
+        {"Spanish": "¿Qué haces ahora?", "Hebrew": "מה אתה עושה עכשיו?"},
+        {"Spanish": "¿Cómo hiciste eso?", "Hebrew": "איך עשית את זה?"},
+        {"Spanish": "¿Te gusta _______?", "Hebrew": "אתה אוהב _______?"},
+        {"Spanish": "¿Y tú?", "Hebrew": "ואתה?"}
+      ],
+      "Personal Information": [
+        {"Spanish": "Me llamo…", "Hebrew": "השם שלי הוא..."},
+        {"Spanish": "Soy…", "Hebrew": "אני..."},
+        {"Spanish": "(Yo) soy de…", "Hebrew": "אני מ..."},
+        {"Spanish": "(Yo) vivo en…", "Hebrew": "אני גר ב..."},
+        {"Spanish": "Mi película favorita es…", "Hebrew": "הסרט האהוב עלי הוא..."},
+        {"Spanish": "Me gusta…", "Hebrew": "אני אוהב/ת..."},
+        {"Spanish": "Hay…", "Hebrew": "יש..."}
+      ],
+      "Communication Helpers": [
+        {"Spanish": "¿Qué?", "Hebrew": "מה?"},
+        {"Spanish": "¿Cómo?", "Hebrew": "איך?"},
+        {"Spanish": "¿Puedes repetir eso, por favor?", "Hebrew": "האם תוכל לחזור על זה, בבקשה?"},
+        {"Spanish": "¿Qué significa eso?", "Hebrew": "מה זה אומר?"},
+        {"Spanish": "Más despacio, por favor.", "Hebrew": "לאט יותר, בבקשה."},
+        {"Spanish": "No entiendo.", "Hebrew": "אני לא מבין/ה."},
+        {"Spanish": "No sé.", "Hebrew": "אני לא יודע/ת."},
+        {"Spanish": "Perdón.", "Hebrew": "סליחה."}
+      ],
+      "Social Relationships": [
+        {"Spanish": "Amigo/Amiga", "Hebrew": "חבר/ה"},
+        {"Spanish": "Mejor amigo/amiga", "Hebrew": "חבר/ה הכי טוב/ה"},
+        {"Spanish": "Compañero/a de clase", "Hebrew": "חבר/ת לכיתה"},
+        {"Spanish": "Compañero/a de trabajo", "Hebrew": "עמית/ת לעבודה"},
+        {"Spanish": "Jefe/a", "Hebrew": "מנהל/ת"},
+        {"Spanish": "Novia", "Hebrew": "חברה"},
+        {"Spanish": "Novio", "Hebrew": "חבר"},
+        {"Spanish": "Familia", "Hebrew": "משפחה"},
+        {"Spanish": "Esposa", "Hebrew": "אישה"},
+        {"Spanish": "Esposo", "Hebrew": "בעל"},
+        {"Spanish": "Mamá", "Hebrew": "אמא"},
+        {"Spanish": "Papá", "Hebrew": "אבא"},
+        {"Spanish": "Hermana", "Hebrew": "אחות"},
+        {"Spanish": "Hermano", "Hebrew": "אח"},
+        {"Spanish": "Primo/prima", "Hebrew": "בן/בת דוד"},
+        {"Spanish": "Tía", "Hebrew": "דודה"},
+        {"Spanish": "Tío", "Hebrew": "דוד"},
+        {"Spanish": "Abuela", "Hebrew": "סבתא"},
+        {"Spanish": "Abuelo", "Hebrew": "סבא"}
+      ],
+      "Common Verbs": [
+        {"Spanish": "Estar", "Hebrew": "להיות"},
+        {"Spanish": "Tener", "Hebrew": "להחזיק"},
+        {"Spanish": "Hacer", "Hebrew": "לעשות"},
+        {"Spanish": "Gustar", "Hebrew": "לאהוב"},
+        {"Spanish": "Saber", "Hebrew": "לדעת"},
+        {"Spanish": "Querer", "Hebrew": "לרצות"},
+        {"Spanish": "Entender", "Hebrew": "להבין"},
+        {"Spanish": "Dar", "Hebrew": "לתת"},
+        {"Spanish": "Llamar", "Hebrew": "לקרוא"},
+        {"Spanish": "Comer", "Hebrew": "לאכול"},
+        {"Spanish": "Beber", "Hebrew": "לשתות"}
+      ]
+  }
+  
+
+
+
+
+
+
+
