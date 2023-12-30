@@ -1,11 +1,12 @@
-import React from "react";
-import { useNavigate } from 'react-router-dom';
-import wordDate from "../../public/"
+import { useNavigate,  } from 'react-router-dom';
+import '../styles/ChooseLevel.css';
+
+const levels = ['Easy', 'Medium', 'Hard'];
+
 
 function GameOption(props) {
   const navigate = useNavigate();
 
-  
   function handleChange(event) {
     const { name, value } = event.target;
     
@@ -19,8 +20,15 @@ function GameOption(props) {
     })
   }
 
-  const levels = ['Easy', 'Medium', 'Hard'];
-  const categories = ['Animals', 'Colors', 'Fruits'];
+  const categories = Object.keys(props.wordsDict);
+
+
+  function handlePlay() {
+    const selectedCategoryWords = props.wordsDict[props.content.category]
+
+    // Navigates to the game page and passes the level, category, and words
+    navigate("/memory-card-game");
+  }
 
 
   return (
@@ -61,7 +69,7 @@ function GameOption(props) {
         <button onClick={(event)=>{
           event.preventDefault();
           // props.onPlay(props.content.level, props.content.category);
-          props.setContent({ level: "", category: "" });
+          handlePlay();   
           }}>
             Play
         </button>

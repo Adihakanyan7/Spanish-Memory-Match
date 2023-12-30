@@ -1,17 +1,18 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from "./Header";
 import Footer from "./Footer";
 import ChooseGame from "../games/chooseGame";
 import GameOption from "../games/gameOption";
-
+import MemoryGame from "../games/MemoryGame/MemoryGame";
+import wordDate from "../data/wordsData";
 
 function App() {
   const [gameNames, setGameNames] = useState(["Memory Card"]);
 
   const [content, setContent] = useState({
-    level: "",
-    category: ""
+    level: "Easy",
+    category: Object.keys(wordDate)[0]
   });
 
   
@@ -27,7 +28,8 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<ChooseGame gameNames={gameNames} />} />
-        <Route path="/memory-card/game-option/" element={<GameOption content={content} setContent={setContent}/>} />
+        <Route path="/memory-card/game-option/" element={<GameOption content={content} setContent={setContent} wordsDict={wordDate}/>} />
+        <Route path="/memory-card-game" element={<MemoryGame content={content} setContent={setContent} wordsDict={wordDate}/>} />
       </Routes>
       <Footer />
     </Router>

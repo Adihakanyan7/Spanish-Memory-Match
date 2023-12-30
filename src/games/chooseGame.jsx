@@ -1,10 +1,7 @@
-import React from "react";
 import { Link } from 'react-router-dom';
+import '../styles/ChooseGame.css';
 
 function ChooseGame(props) {
-
-  
-
   return (
     <div className="game-options">
       <h1> Choose A Game To Learn From ! </h1>
@@ -13,7 +10,8 @@ function ChooseGame(props) {
           <li key={element} className="game-option">
             <Link 
               to={{
-                pathname: "/" + element.replace(/\s+/g, '-').toLowerCase() +"/game-option/",
+                pathname: `/${element.replace(/\s+/g, '-').toLowerCase()}/game-option/`,
+                state: { gameName: element }
               }} 
               className="game-link">
               {element}

@@ -1,0 +1,38 @@
+/* MemoryGame.css */
+.memory-game-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Two columns: one for each deck */
+  gap: 20px;
+  padding: 20px;
+  justify-content: center;
+  align-items: start;
+}
+  
+  .card {
+    width: 100px;
+    height: 150px;
+    background-color: #f0f0f0;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  
+  .card:hover {
+    transform: scale(1.05);
+  }
+  
+
+  .memory-game-container {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .spanish-deck, .hebrew-deck {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Responsive card layout */
+    gap: 10px;
+  }

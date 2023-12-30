@@ -1,0 +1,37 @@
+/* Card.css */
+.card-content, .card-back {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 1.2rem;
+    color: #333;
+    border-radius: 6px;
+    backface-visibility: hidden;
+  }
+  
+.card-content {
+  background-color: #fff;
+}
+
+.card-back {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.card-content-match {
+  animation: flashGreen 2s;
+  /* Other styling as needed */
+}
+
+@keyframes flashGreen {
+    0%, 100% {
+        background-color: transparent;
+    }
+    50% {
+        background-color: green;
+    }
+}
+
