@@ -42,3 +42,41 @@
     width: 100%; /* Set width to 100% to center the text properly */
     text-align: center; /* Center the text */
   }
+
+  
+.back-button {
+  display: block;
+  width: 100%; /* Use full width for better touch targets on mobile */
+  max-width: 200px; /* Maximum width of the button */
+  margin: 0 auto; /* Center the button horizontally */
+  padding: 10px 20px; /* Padding for better touch area */
+  font-size: 1rem; /* Readable font size */
+  font-weight: bold; /* Make the text stand out */
+  text-align: center; /* Center the text within the button */
+  color: #ffffff; /* Text color */
+  background-color: #007bff; /* Background color */
+  border: none; /* Remove default border */
+  border-radius: 4px; /* Slight rounding of corners */
+  cursor: pointer; /* Change cursor to indicate it's clickable */
+  transition: background-color 0.3s ease, transform 0.1s ease; /* Smooth transition for hover and active states */
+}
+
+.back-button:hover,
+.back-button:focus {
+  background-color: #0056b3; /* Darken background color on hover/focus */
+}
+
+.back-button:active {
+  transform: scale(0.98); /* Slightly shrink the button when clicked */
+  background-color: #004080; /* Even darker background color for active state */
+}
+
+/* Accessibility: Ensure proper contrast and visibility */
+.back-button {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  outline: none; /* Remove default focus outline */
+}
+
+.back-button:focus-visible {
+  box-shadow: 0 0 0 3px #ffbf47; /* Add a visible outline when focused for keyboard navigation */
+}

@@ -1,8 +1,10 @@
 import {useState, useEffect} from "react";
+import { useNavigate  } from 'react-router-dom';
 import Card from "./Card";
 import "../../styles/MemoryGame.css"
 
 function MemoryGame(props){
+  const navigate = useNavigate();
 
   const [deck, setDeck] = useState([]);
   const [flippedIndices, setFlippedIndices] = useState([]);
@@ -211,7 +213,19 @@ function MemoryGame(props){
                     />
             })
             }
-          </div>  
+          </div> 
+          <form >
+            <button 
+              type="button" 
+              className="back-button" 
+              onClick={(event) => {
+                event.preventDefault();
+                navigate("/memory-card/game-option/")
+              }}
+            >
+              Back
+            </button>
+            </form >
         </div>
          );
 }
