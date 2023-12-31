@@ -3,11 +3,10 @@ import Card from "./Card";
 import "../../styles/MemoryGame.css"
 
 function MemoryGame(props){
-  console.log('Memory game render!')
-    const [deck, setDeck] = useState([]);
-    const [flippedIndices, setFlippedIndices] = useState([]);
-    const [matchedIndices, setMatchedIndices] = useState(new Set());
-    const [isChecking, setIsChecking] = useState(false);
+
+  const [deck, setDeck] = useState([]);
+  const [flippedIndices, setFlippedIndices] = useState([]);
+  const [isChecking, setIsChecking] = useState(false);
 
 
 
@@ -16,7 +15,7 @@ function MemoryGame(props){
     // Extract words for the selected category
     const selectedCategoryWords = props.wordsDict[props.content.category];
     
-    // When lvl or words is change create a new deck
+    // When lvl or words is change biuld a new deck
     useEffect(() => {
       BiuldDeack(props.content.level, selectedCategoryWords);
       // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -39,9 +38,9 @@ function MemoryGame(props){
             numberOfPairs = 20;
             break;
           default:
-            numberOfPairs = 5;
+            numberOfPairs = 10;
         }
-        numberOfPairs = 5;
+        
         createMemoryDeck(words, numberOfPairs);
     }
 
@@ -145,7 +144,7 @@ function MemoryGame(props){
       return card;
     });
     setDeck(newDeck);
-    setMatchedIndices(prev => new Set([...prev, ...indices]));
+    
   
     // After the animation duration, set the cards to be invisible
     setTimeout(() => {
@@ -177,20 +176,42 @@ function MemoryGame(props){
   
   return (
         <div className="memory-game-container"> {/* Add className for styling */}
-          {deck.map((card, index) => {
-            return (
-              <Card
-                key={index}
-                id={index}
-                title="Card"
-                content={card.word}
-                isFlipped={card.isFlipped}
-                isMatched={card.isMatched}
-                isInvisible={card.isInvisible? true : false}
-                clickShow={() => flipCardTo(index)}
-              />
-            );
-          })}
+          <h2>Spanish words</h2>
+          <div className="spanish-deck">
+            {deck.filter((card) =>{
+              return card.language === "Spanish"
+            }).map((card) => {
+              return <Card
+                        key={card.index}
+                        id={card.index}
+                        title="Card"
+                        content={card.word}
+                        isFlipped={card.isFlipped}
+                        isMatched={card.isMatched}
+                        isInvisible={card.isInvisible? true : false}
+                        clickShow={() => flipCardTo(card.index)}
+                    />
+            })
+            }
+          </div>
+          <h2>Hebrew words</h2>
+          <div className="hebrew-deck">
+            {deck.filter((card) =>{
+              return card.language === "Hebrew"
+            }).map((card) => {
+              return <Card
+                        key={card.index}
+                        id={card.index}
+                        title="Card"
+                        content={card.word}
+                        isFlipped={card.isFlipped}
+                        isMatched={card.isMatched}
+                        isInvisible={card.isInvisible? true : false}
+                        clickShow={() => flipCardTo(card.index)}
+                    />
+            })
+            }
+          </div>  
         </div>
          );
 }
