@@ -186,6 +186,7 @@ function MemoryGame(props){
                 content={card.word}
                 isFlipped={card.isFlipped}
                 isMatched={card.isMatched}
+                isInvisible={card.isInvisible? true : false}
                 clickShow={() => flipCardTo(index)}
               />
             );
