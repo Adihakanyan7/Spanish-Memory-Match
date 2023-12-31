@@ -5,7 +5,7 @@ import "../../styles/MemoryGame.css"
 
 function MemoryGame(props){
   const navigate = useNavigate();
-
+  const [gameEnd, setGameEnd] = useState({end: false, win: false, life: 0, matchCards: 0});
   const [deck, setDeck] = useState([]);
   const [flippedIndices, setFlippedIndices] = useState([]);
   const [isChecking, setIsChecking] = useState(false);
@@ -178,7 +178,17 @@ function MemoryGame(props){
   
   return (
         <div className="memory-game-container"> {/* Add className for styling */}
-          <h2>Spanish words</h2>
+          {gameEnd.end? // if
+          <div className="endGame">
+            {gameEnd.win?
+              <h2>win</h2>
+              :
+              <h2>Lose</h2>
+          }
+          </div>
+          : // else
+          <div>
+            <h2>Spanish Words</h2>
           <div className="spanish-deck">
             {deck.filter((card) =>{
               return card.language === "Spanish"
@@ -196,7 +206,7 @@ function MemoryGame(props){
             })
             }
           </div>
-          <h2>Hebrew words</h2>
+          <h2>Hebrew Words</h2>
           <div className="hebrew-deck">
             {deck.filter((card) =>{
               return card.language === "Hebrew"
@@ -226,6 +236,9 @@ function MemoryGame(props){
               Back
             </button>
             </form >
+          </div>
+          }
+          
         </div>
          );
 }
