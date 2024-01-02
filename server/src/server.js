@@ -1,11 +1,13 @@
 import express from 'express';
 import pg from 'pg';
 import dotenv from 'dotenv';
+import cors from 'cors';
 
 dotenv.config();
 const { Pool } = pg;
 
 const app = express();
+app.use(cors()); // Enable CORS for all routes
 const port = process.env.PORT || 3001;
 
 const pool = new Pool({
@@ -26,10 +28,21 @@ app.get('/', async (req, res) => {
   }
 });
 
+app.get('/categories', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT DISTINCT category FROM dictionaryWords');
+    const categories = result.rows.map(row => row.category);
+    console.log("/words/:category  ----  \n" , categories);
+    res.json(categories);
+  } catch (err) {
+    res.status(500).send('Error retrieving categories');
+  }
+});
+
 app.post('/words', express.json(), async (req, res) => {
   try {
     const { spanish, hebrew, category } = req.body;
-    const result = await pool.query('INSERT INTO dictionaryWords (spanish, hebrew, category) VALUES ($1, $2, $3)', [spanish, hebrew, category]);
+    const result = await pool.query('INSERT INTO dictionarywords (spanish, hebrew, category) VALUES ($1, $2, $3)', [spanish, hebrew, category]);
     res.status(201).send('Word pair added successfully');
   } catch (err) {
     res.status(500).send('Error adding word pair');
@@ -39,7 +52,8 @@ app.post('/words', express.json(), async (req, res) => {
 app.get('/words/:category', async(req, res) => {
   try{
     const category = req.params.category;
-    const result = await pool.query('SELECT spanish, hebrew FROM dictionaryWords WHERE category = $1', [category]);
+    const result = await pool.query('SELECT spanish, hebrew FROM dictionarywords WHERE category = $1', [category]);
+    console.log("/words/:category  ----  \n", result.rows);
     res.json(result.rows);
   } catch (err) {
     res.status(500).send('Error retrieving words');
@@ -50,7 +64,7 @@ app.put('/words/:id', express.json(), async (req, res) => {
   try {
     const { id } = req.params;
     const { spanish, hebrew, category } = req.body;
-    const result = await pool.query('UPDATE dictionaryWords SET spanish = $1, hebrew = $2, category = $3 WHERE id = $4', [spanish, hebrew, category, id]);
+    const result = await pool.query('UPDATE dictionarywords SET spanish = $1, hebrew = $2, category = $3 WHERE id = $4', [spanish, hebrew, category, id]);
     if (result.rowCount === 0) {
       res.status(404).send('Word pair not found');
     } else {
@@ -64,7 +78,7 @@ app.put('/words/:id', express.json(), async (req, res) => {
 app.delete('/words/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const result = await pool.query('DELETE FROM dictionaryWords WHERE id = $1', [id]);
+    const result = await pool.query('DELETE FROM dictionarywords WHERE id = $1', [id]);
     if (result.rowCount === 0) {
       res.status(404).send('Word pair not found');
     } else {
