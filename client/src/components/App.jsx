@@ -6,6 +6,7 @@ import ChooseGame from "../games/chooseGame";
 import GameOption from "../games/gameOption";
 import MemoryGame from "../games/MemoryGame/MemoryGame";
 import wordDate from "../data/wordsData";
+import axios from 'axios';
 
 function App() {
   const [gameNames, setGameNames] = useState(["Memory Card"]);

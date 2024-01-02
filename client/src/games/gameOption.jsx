@@ -1,11 +1,28 @@
-import { useNavigate  } from 'react-router-dom';
+import {  useNavigate  } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+
 import '../styles/ChooseLevel.css';
+import axios from 'axios';
 
 const levels = ['Easy', 'Medium', 'Hard'];
 
 
 function GameOption(props) {
   const navigate = useNavigate();
+  const [categories, setCategories] = useState([]);
+
+
+  useEffect(() => {
+    // Fetch categories when the component mounts
+    axios.get('http://localhost:3001/categories')
+      .then(response => {
+        setCategories(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching categories:', error);
+      });
+  }, []);
+
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -20,14 +37,20 @@ function GameOption(props) {
     })
   }
 
-  const categories = Object.keys(props.wordsDict);
+  //const categories = Object.keys(props.wordsDict);
 
 
   function handlePlay() {
-    const selectedCategoryWords = props.wordsDict[props.content.category]
-
-    // Navigates to the game page and passes the level, category, and words
-    navigate("/memory-card-game");
+    // Fetch words for the selected category from the server
+    axios.get(`http://localhost:3001/words/${props.content.category}`)
+      .then(response => {
+        // Pass the words to the game page (you might need to adjust this)
+        console.log("gameMemory- > \n " + "navigate(/memory-card-game, { state: { words: response.data } });", response.data)
+        navigate("/memory-card-game", { state: { words: response.data } });
+      })
+      .catch(error => {
+        console.error('Error fetching words:', error);
+      });
   }
 
 
@@ -80,8 +103,6 @@ function GameOption(props) {
           }}>
             Back
         </button>
-
-
 
       </form>
     </div>

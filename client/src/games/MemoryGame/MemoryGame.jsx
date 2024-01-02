@@ -1,5 +1,5 @@
-import {useState, useEffect} from "react";
-import { useNavigate  } from 'react-router-dom';
+import { useState, useEffect} from "react";
+import { useLocation, useNavigate  } from 'react-router-dom';
 import Card from "./Card";
 import "../../styles/MemoryGame.css"
 
@@ -12,6 +12,10 @@ const LEVELS = {
 
 function MemoryGame(props){
   const navigate = useNavigate();
+  const location = useLocation();
+  const words = location.state.words; // Get words passed from the game option
+  console.log("MemoryGame - >location.state.words;\n ", location.state.words);
+
   const [gameEnd, setGameEnd] = useState({end: false, win: false, life: 0, matchCards: 1});
   const [deck, setDeck] = useState([]);
   const [flippedIndices, setFlippedIndices] = useState([]);
@@ -22,12 +26,9 @@ function MemoryGame(props){
 
     // Biulding the Deck  --------------------------------------------->
 
-    // Extract words for the selected category
-    const selectedCategoryWords = props.wordsDict[props.content.category];
-    
     // When lvl or words is change biuld a new deck
     useEffect(() => {
-      BiuldDeack(props.content.level, selectedCategoryWords);
+      BiuldDeack(props.content.level, words);
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.content.level, props.content.category]);
 
@@ -49,8 +50,8 @@ function MemoryGame(props){
         const selectedIndices = getRandomIndexes(words.length, numberOfPairs);
       
         // Split the selected word pairs into separate Spanish and Hebrew arrays
-        const spanishWords = selectedIndices.map(index => ({ word: words[index].Spanish, language: 'Spanish', pairIndex: index }));
-        const hebrewWords = selectedIndices.map(index => ({ word: words[index].Hebrew, language: 'Hebrew', pairIndex: index }));
+        const spanishWords = selectedIndices.map(index => ({ word: words[index].spanish, language: 'Spanish', pairIndex: index }));
+        const hebrewWords = selectedIndices.map(index => ({ word: words[index].hebrew, language: 'Hebrew', pairIndex: index }));
       
         // Combine the arrays and shuffle them to create the deck
         //const deck = spanishWords.concat(hebrewWords).sort(() => Math.random() - 0.5);
