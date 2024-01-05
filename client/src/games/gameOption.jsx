@@ -45,7 +45,6 @@ function GameOption(props) {
     axios.get(`http://localhost:3001/words/${props.content.category}`)
       .then(response => {
         // Pass the words to the game page (you might need to adjust this)
-        console.log("gameMemory- > \n " + "navigate(/memory-card-game, { state: { words: response.data } });", response.data)
         navigate("/memory-card-game", { state: { words: response.data } });
       })
       .catch(error => {

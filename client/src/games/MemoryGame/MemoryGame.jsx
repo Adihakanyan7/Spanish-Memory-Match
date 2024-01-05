@@ -14,14 +14,17 @@ function MemoryGame(props){
   const navigate = useNavigate();
   const location = useLocation();
   const words = location.state.words; // Get words passed from the game option
-  console.log("MemoryGame - >location.state.words;\n ", location.state.words);
+  //console.log("The words of the game: ", words);
 
-  const [gameEnd, setGameEnd] = useState({end: false, win: false, life: 0, matchCards: 1});
+  // Bulding Deck
   const [deck, setDeck] = useState([]);
+  const [numOfPairs, setNumOfPairs] = useState(LEVELS[props.content.level] || 10);
+  //stats for the cards
   const [flippedIndices, setFlippedIndices] = useState([]);
   const [isChecking, setIsChecking] = useState(false);
-  const [numOfPairs, setNumOfPairs] = useState(LEVELS[props.content.level] || 10);
-
+  //End game 
+  const [gameEnd, setGameEnd] = useState({end: false, win: false, life: 0, matchCards: 1});
+  
 
 
     // Biulding the Deck  --------------------------------------------->
@@ -29,6 +32,8 @@ function MemoryGame(props){
     // When lvl or words is change biuld a new deck
     useEffect(() => {
       BiuldDeack(props.content.level, words);
+      //console.log("The Deck: " ,deck);
+
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.content.level, props.content.category]);
 
@@ -38,6 +43,7 @@ function MemoryGame(props){
         return;
       }
       setNumOfPairs(LEVELS[lvl] || 10); // Update numOfPairs state
+      //console.log("setNumOfPairs: ", numOfPairs);
       createMemoryDeck(words, LEVELS[lvl] || 10);
     }
 
@@ -48,7 +54,7 @@ function MemoryGame(props){
       }
         // Select random unique indices from the words array
         const selectedIndices = getRandomIndexes(words.length, numberOfPairs);
-      
+        //console.log("selectedIndices: ", selectedIndices);
         // Split the selected word pairs into separate Spanish and Hebrew arrays
         const spanishWords = selectedIndices.map(index => ({ word: words[index].spanish, language: 'Spanish', pairIndex: index }));
         const hebrewWords = selectedIndices.map(index => ({ word: words[index].hebrew, language: 'Hebrew', pairIndex: index }));
@@ -64,8 +70,9 @@ function MemoryGame(props){
           isInvisible: false,
           index: index // Unique index for each card
         }));
-      
+        //console.log("The new deck: ", preparedDeck);
         setDeck(preparedDeck);
+
       }
        
     function getRandomIndexes(length, count) {
@@ -86,95 +93,12 @@ function MemoryGame(props){
     }
     // ------------------------------------------------> Biulding the Deck
 
-
-
-    // During the game ------------------------------------------------>
-    function flipCardTo(index) {
-      if (isChecking || flippedIndices.includes(index) || deck[index].isFlipped) {
-        // Already checking or the card is already flipped or is being checked, do nothing
-        return;
-      }
-    
-      // Flip the card
-      const newDeck = [...deck];
-      newDeck[index].isFlipped = true;
-      setDeck(newDeck);
-    
-      // Add the card to the flipped indices
-      const newFlippedIndices = [...flippedIndices, index];
-      setFlippedIndices(newFlippedIndices);
-    
-      // If two cards are flipped, check for a match after a short delay
-      if (newFlippedIndices.length === 2) {
-        setIsChecking(true);
-        setTimeout(() => {
-          const [firstIndex, secondIndex] = newFlippedIndices;
-          const firstCard = newDeck[firstIndex];
-          const secondCard = newDeck[secondIndex];
-          if (firstCard && secondCard && firstCard.pairIndex === secondCard.pairIndex) {
-            handleMatch(newFlippedIndices);
-          } else {
-            resetFlippedCards(newFlippedIndices);
-          }
-          setIsChecking(false);
-          setFlippedIndices([]);
-        }, 1000);
-      }
-    }
-    
-    
-  // ---------------------------------------------------------> During the game 
-  
-
-  // When card fliped ------------------------------------------------>
-
-    
-  // When card fliped ------------------------------------------------>
-
-  //  When match  ---------------------------------------------------->
-  function handleMatch(indices) {
-    // First, mark the cards as matched without making them invisible yet
-    const newDeck = deck.map((card, index) => {
-      if (indices.includes(index)) {
-        console.log(gameEnd.matchCards);
-        return { ...card, isMatched: true };
-      }
-      return card;
-    });
-    setDeck(newDeck);
-    
-    setGameEnd(prevState => ({
-      ...prevState,
-      matchCards: prevState.matchCards + 1
-    }));
-    console.log("gameEnd.matchCards: "+ gameEnd.matchCards);
-
-    // After the animation duration, set the cards to be invisible
-    setTimeout(() => {
-      setDeck(currentDeck => currentDeck.map((card, index) => {
-        if (indices.includes(index)) {
-          return { ...card, isInvisible: true };
-        }
-        return card;
-      }));
-    }, 2000);
-  }
-  
-
-  // ------------------------------------------------> When match 
    
-    function resetFlippedCards(indices) {
-      const newDeck = deck.map((card, index) => {
-        if (indices.includes(index)) {
-          return { ...card, isFlipped: false };
-        }
-        return card;
-      });
-      setDeck(newDeck);
-    }
 
-  // ------------------------------------------------> When no match
-      
+    
+
+
+
   
   
   return (
@@ -199,14 +123,17 @@ function MemoryGame(props){
               return card.language === "Spanish"
             }).map((card) => {
               return <Card
-                        key={card.index}
-                        id={card.index}
-                        title="Card"
-                        content={card.word}
-                        isFlipped={card.isFlipped}
-                        isMatched={card.isMatched}
-                        isInvisible={card.isInvisible? true : false}
-                        clickShow={() => flipCardTo(card.index)}
+                key={card.index}
+                id={card.index}
+                title="Card"
+                card={card}
+                deck={deck}
+                setDeck={setDeck}
+                setGameEnd={setGameEnd}
+                flippedIndices={flippedIndices}
+                setFlippedIndices={setFlippedIndices}
+                isChecking={isChecking}
+                setIsChecking={setIsChecking}
                     />
             })
             }
@@ -220,11 +147,14 @@ function MemoryGame(props){
                         key={card.index}
                         id={card.index}
                         title="Card"
-                        content={card.word}
-                        isFlipped={card.isFlipped}
-                        isMatched={card.isMatched}
-                        isInvisible={card.isInvisible? true : false}
-                        clickShow={() => flipCardTo(card.index)}
+                        card={card}
+                        deck={deck}
+                        setDeck={setDeck}
+                        setGameEnd={setGameEnd}
+                        flippedIndices={flippedIndices}
+                        setFlippedIndices={setFlippedIndices}
+                        isChecking={isChecking}
+                        setIsChecking={setIsChecking}
                     />
             })
             }
