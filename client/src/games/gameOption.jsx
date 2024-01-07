@@ -1,35 +1,45 @@
+import React, { useState, useEffect, useContext  } from 'react';
 import {  useNavigate  } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
+import '../styles/GameOption.css';
+import { useDeckContext,DeckContext } from "./context.ts"
 
-import '../styles/ChooseLevel.css';
-import axios from 'axios';
+
 
 const levels = ['Easy', 'Medium', 'Hard'];
 
 
 function GameOption(props) {
   const navigate = useNavigate();
+  const [shouldNavigate, setShouldNavigate] = useState(false);
   const [categories, setCategories] = useState([]);
-
+  const { words,setWords, content, setContent } = useDeckContext(DeckContext);
 
   useEffect(() => {
-    // Fetch categories when the component mounts
-    axios.get('http://localhost:3001/categories')
-      .then(response => {
-        setCategories(response.data);
+    //console.log("GameOption -> useEffect with shouldNavigate ->  before -> Words set in context:", words);
+    if (shouldNavigate && words.length > 0) {
+      //console.log("GameOption -> handlePlay -> after -> Words set in context:", words);
+      navigate("/memory-card-game/board");
+      setShouldNavigate(false); // Reset the flag
+    }
+  }, [words, shouldNavigate, navigate]);
+
+  useEffect(() => {
+    // Fetch data when component mounts
+    fetch("http://localhost:3001/categories") // Replace with your server's URL and endpoint
+      .then(response => response.json())
+      .then(data => {
+        setCategories(data); // Update state with fetched data
       })
-      .catch(error => {
-        console.error('Error fetching categories:', error);
-      });
-  }, []);
+      .catch(error => console.error("Error fetching data:", error));
+  }, []); // Empty dependency array means this runs once when component mounts
+
+
 
 
   function handleChange(event) {
     const { name, value } = event.target;
-    
-    console.log("Updating:", name, value);
 
-    props.setContent( (prevValue) =>{
+    setContent( (prevValue) =>{
       return {
         ...prevValue,
         [name]: value
@@ -37,31 +47,31 @@ function GameOption(props) {
     })
   }
 
-  //const categories = Object.keys(props.wordsDict);
 
 
   function handlePlay() {
     // Fetch words for the selected category from the server
-    axios.get(`http://localhost:3001/words/${props.content.category}`)
-      .then(response => {
-        // Pass the words to the game page (you might need to adjust this)
-        navigate("/memory-card-game", { state: { words: response.data } });
-      })
-      .catch(error => {
-        console.error('Error fetching words:', error);
-      });
-  }
-
+    fetch(`http://localhost:3001/words/${content.category}`)
+    .then(response => response.json())
+    .then(data => {
+      //console.log("GameOption -> handlePlay -> Words fetched:", data);
+      setWords(data); // Use setWords from the context to update the words
+      setShouldNavigate(true); // Set flag to indicate words have been set
+    })
+    .catch(error => {
+      console.error('Error fetching words:', error);
+    });
+  };
 
   return (
-    <div className="choose-level-container"> {/* Applied container class for styling */}
-      <form className="choose-level-form"> {/* This matches the form class in your CSS */}
-        <label className="choose-level-label"> {/* Label class if needed */}
+    <div className="choose-level-container"> 
+      <form className="choose-level-form"> 
+        <label className="choose-level-label">
           Choose a level:
           <select
             className="choose-level-select" // Applied select class for styling
             name="level" 
-            value={props.content.level}
+            value={content.level}
             onChange={handleChange}
           >
             {levels.map(level => (
@@ -76,7 +86,7 @@ function GameOption(props) {
           <select
             className="choose-level-select" // Applied select class for styling
             name="category"
-            value={props.content.category}
+            value={content.category}
             onChange={handleChange}
           >
             {categories.map(category => (
@@ -90,7 +100,6 @@ function GameOption(props) {
 
         <button onClick={(event)=>{
           event.preventDefault();
-          // props.onPlay(props.content.level, props.content.category);
           handlePlay();   
           }}>
             Play

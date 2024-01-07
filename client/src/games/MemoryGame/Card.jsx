@@ -1,116 +1,105 @@
-import React, {useEffect, useState} from "react";
-import "../../styles/Card.css"
+import React, { useCallback, useEffect } from 'react';
+import '../../styles/Card.css';
+import { useDeckContext } from '../context.ts';
 
-function Card(props) {
-  
-  const curr_card = props.deck[props.id];
+function Card({ id, flippedIndices, setFlippedIndices, isChecking, setIsChecking, setGameEnd, title }) {
+  const {deck, setDeck} = useDeckContext();
+
+  const curr_card = deck[id];
   let cardClasses = `card ${curr_card.isInvisible ? 'invisible' : ''}`;
   
-  function isValidToFlip(){
-    if (props.isChecking || props.flippedIndices.includes(props.id) || props.deck[props.id].isFlipped) {
-      // Already checking or the card is already flipped or is being checked, do nothing
+  const isValidToFlip = useCallback(() => {
+    if (isChecking || flippedIndices.includes(id) || curr_card.isFlipped) {
       return false;
-    }else{
+    } else {
       return true;
     }
-  }
+  }, [id, isChecking, flippedIndices, curr_card]);
 
-  function turnCardPropertyToFlipped(){
-    // Flip the card in the deck
-    const newDeck = [...props.deck];
-    newDeck[props.id].isFlipped = true;
-    props.setDeck(newDeck);
-  }
+  const turnCardPropertyToFlipped = useCallback(() => {
+    const newDeck = [...deck];
+    newDeck[id].isFlipped = true;
+    setDeck(newDeck);
+  }, [id, deck, setDeck]);
 
-  function addCardToFlippedIndices(){
-    // Add the card to the flipped indices
-    const newFlippedIndices = [...props.flippedIndices, props.id];
-    props.setFlippedIndices(newFlippedIndices);
-  }
+  const addCardToFlippedIndices = useCallback(() => {
+    const newFlippedIndices = [...flippedIndices, id];
+    setFlippedIndices(newFlippedIndices);
+  }, [id, flippedIndices, setFlippedIndices]);
 
-  function checkingIfMatch(){
-    const [firstIndex, secondIndex] = props.flippedIndices;
-    const firstCard = props.deck[firstIndex];
-    const secondCard = props.deck[secondIndex];
-    if (firstCard && secondCard && firstCard.pairIndex === secondCard.pairIndex) {
-      return true;
-    }
-    return false;
-  }
+  const checkingIfMatch = useCallback(() => {
+    const [firstIndex, secondIndex] = flippedIndices;
+    const firstCard = deck[firstIndex];
+    const secondCard = deck[secondIndex];
+    return firstCard && secondCard && firstCard.pairIndex === secondCard.pairIndex;
+  }, [flippedIndices, deck]);
 
-  function handleMatch() {
-    // First, mark the cards as matched without making them invisible yet
-    const newDeck = props.deck.map((card, index) => {
-      if (props.flippedIndices.includes(index)) {
+  const handleMatch = useCallback(() => {
+    const newDeck = deck.map((card, index) => {
+      if (flippedIndices.includes(index)) {
         return { ...card, isMatched: true };
       }
       return card;
     });
-    props.setDeck(newDeck);
-    
-    props.setGameEnd(prevState => ({
+    setDeck(newDeck);
+    setGameEnd(prevState => ({
       ...prevState,
-      matchCards: prevState.matchCards + 1
+      matchCards: prevState.matchCards + 1,
     }));
+  }, [flippedIndices, deck, setDeck, setGameEnd]);
 
-  }
-
-  function resetFlippedCards() {
-    const newDeck = props.deck.map((card, index) => {
-      if (props.flippedIndices.includes(index)) {
+  const resetFlippedCards = useCallback(() => {
+    const newDeck = deck.map((card, index) => {
+      if (flippedIndices.includes(index)) {
         return { ...card, isFlipped: false };
       }
       return card;
     });
-    props.setDeck(newDeck);
-  }
+    setDeck(newDeck);
+  }, [flippedIndices, deck, setDeck]);
 
-  useEffect(()=>{
-    //console.log("FlippedIndices.length after update:", props.flippedIndices.length);
-    if (props.flippedIndices.length === 2) {
-      //console.log("Two cards flipped, checking for match...");
-      props.setIsChecking(true);
-      setTimeout(() => {
+  useEffect(() => {
+    if (flippedIndices.length === 2) {
+      setIsChecking(true);
+      const timer = setTimeout(() => {
         if (checkingIfMatch()) {
-          console.log("Two cards flipped, checking for match...");
           handleMatch();
         } else {
           resetFlippedCards();
         }
-        props.setIsChecking(false);
-        props.setFlippedIndices([]);
+        setIsChecking(false);
+        setFlippedIndices([]);
       }, 1000);
-    }
-  },[props.flippedIndices, props.deck])
 
-  function handleClick(){
-    if(!isValidToFlip()){
-      return ;
+      return () => clearTimeout(timer); // Cleanup timeout if the component unmounts
+    }
+  }, [flippedIndices, checkingIfMatch, handleMatch, resetFlippedCards, setIsChecking, setFlippedIndices]);
+
+  const handleClick = () => {
+    if (!isValidToFlip()) {
+      return;
     }
     turnCardPropertyToFlipped();
     addCardToFlippedIndices();
-  }
+  };
 
-
-    return (
-      <div className={cardClasses} onClick={handleClick}>
-        {props.deck[props.id].isFlipped && props.deck[props.id].isMatched ? 
-          <div className="card-content-match">
-            {props.deck[props.id].word}
-          </div>
-          : props.deck[props.id].isFlipped ?
-          <div className="card-content">
-            {props.deck[props.id].word}
-          </div>
-          :
-          <div className="card-back">
-            {props.title}
-          </div>
-        }
-      </div>
-    );
-  }
-  
-
+  return (
+    <div className={cardClasses} onClick={handleClick}>
+      {curr_card.isFlipped && curr_card.isMatched ? (
+        <div className="card-content-match">
+          {curr_card.word}
+        </div>
+      ) : curr_card.isFlipped ? (
+        <div className="card-content">
+          {curr_card.word}
+        </div>
+      ) : (
+        <div className="card-back">
+          {title}
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default Card;

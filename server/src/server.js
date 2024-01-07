@@ -28,11 +28,20 @@ app.get('/', async (req, res) => {
   }
 });
 
+app.get('/dict', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM dictionaryWords');
+    const data = result.rows;
+    res.json(data);
+  } catch (err) {
+    res.status(500).send('Error retrieving categories');
+  }
+});
+
 app.get('/categories', async (req, res) => {
   try {
     const result = await pool.query('SELECT DISTINCT category FROM dictionaryWords');
     const categories = result.rows.map(row => row.category);
-    console.log("/words/:category  ----  \n" , categories);
     res.json(categories);
   } catch (err) {
     res.status(500).send('Error retrieving categories');
@@ -53,7 +62,6 @@ app.get('/words/:category', async(req, res) => {
   try{
     const category = req.params.category;
     const result = await pool.query('SELECT spanish, hebrew FROM dictionarywords WHERE category = $1', [category]);
-    console.log("/words/:category  ----  \n", result.rows);
     res.json(result.rows);
   } catch (err) {
     res.status(500).send('Error retrieving words');
