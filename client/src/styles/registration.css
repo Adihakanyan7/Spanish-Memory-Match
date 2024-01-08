@@ -1,0 +1,83 @@
+/* Registration.css */
+
+/* General Form Styling */
+.form-container {
+    max-width: 500px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 10px;
+    color: #333;
+    font-weight: bold;
+}
+
+.form-field {
+    width: 100%;
+    padding: 8px 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.form-field:focus {
+    outline: none;
+    border-color: #44a8db;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.875em;
+    margin-bottom: 10px;
+}
+
+/* Button Styling */
+.submit-button {
+    background-color: #f5ba13; /* Match with your theme color */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s;
+}
+
+.submit-button:hover {
+    background-color: #e49b0f;
+}
+
+/* Modal Styling */
+.modal {
+    /* Your existing modal styles */
+}
+
+.modal-content {
+    /* Your existing modal-content styles */
+}
+
+.modal button {
+    /* Style for the modal close button */
+    background-color: #007bff;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.modal button:hover {
+    background-color: #0056b3;
+}
+
+/* Loading State Style */
+.loading-button {
+    background-color: #ccc; /* Greyed out button when loading */
+}
