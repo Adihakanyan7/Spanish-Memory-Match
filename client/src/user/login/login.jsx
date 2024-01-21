@@ -27,15 +27,16 @@ function Login() {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(values)
             });
-
+            console.error('login.js -> checking if response.ok', response.ok);
             if (response.ok) {
+                console.error('login.js -> enter if response.ok');
                 const data = await response.json();
                 // Store the token in localStorage or sessionStorage
                 localStorage.setItem('authToken', data.token);
                 navigate('/games'); // Redirect to dashboard or home page
             } else {
                 // Handle errors like incorrect credentials
-                console.error('Login failed');
+                console.error('login.js -> Login failed');
             }
         } catch (error) {
             console.error('There was an error:', error);
