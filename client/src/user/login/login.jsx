@@ -19,7 +19,7 @@ function Login() {
         password: Yup.string().required('Password is required.')
     });
 
-    const handleSubmit = async (values, { setSubmitting }) => {
+    const handleSubmit = async (values, { setSubmitting, setFieldError }) => {
         setIsLoading(true);
         try {
             const response = await fetch('http://localhost:3001/login', {
@@ -34,6 +34,15 @@ function Login() {
                 // Store the token in localStorage or sessionStorage
                 localStorage.setItem('authToken', data.token);
                 navigate('/games'); // Redirect to dashboard or home page
+            } else if (response.status === 401){
+                const result = await response.json();
+
+                const message = result.message;
+                if (message.includes("password")){
+                    setFieldError('password', result.message); // Set the error message for the email field
+                }else{
+                    setFieldError('email', result.message); // Set the error message for the email field
+                }
             } else {
                 // Handle errors like incorrect credentials
                 console.error('login.js -> Login failed');
