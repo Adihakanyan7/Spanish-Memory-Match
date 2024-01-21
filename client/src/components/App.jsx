@@ -1,14 +1,13 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
 import Login from "../user/login/login.jsx";
 import Register from "../user/registration/register.jsx";
 import ChooseGame from "../games/ChooseGame.jsx";
-import GameOption from "../games/GameOption.jsx";
+import GameOption from "../games/gameOption.jsx";
 import Board from "../games/MemoryGame/Board.jsx";
-import Deck from "../games/MemoryGame/Deck.jsx";
-import { DeckContext, useDeckContext } from "../games/context.ts";
+import { DeckContext } from "../games/context.ts";
 
 const LEVELS = {
   Easy: 5,
