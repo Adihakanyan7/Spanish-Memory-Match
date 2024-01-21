@@ -3,11 +3,12 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useNavigate, Link} from 'react-router-dom';
 import '../../styles/login.css'; 
-
+import { useUserContext } from "../../components/userContext.ts";
 
 function Login() {
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
+    const {setIsLoggedIn} = useUserContext();
 
     const initialValues = {
         email: '',
@@ -33,6 +34,7 @@ function Login() {
                 const data = await response.json();
                 // Store the token in localStorage or sessionStorage
                 localStorage.setItem('authToken', data.token);
+                setIsLoggedIn(true);
                 navigate('/games'); // Redirect to dashboard or home page
             } else if (response.status === 401){
                 const result = await response.json();

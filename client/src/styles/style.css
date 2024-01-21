@@ -17,12 +17,43 @@ header {
   margin: auto -16px;
   padding: 16px 32px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
+
 header h1 {
   color: #fff;
   font-family: "McLaren", cursive;
   font-weight: 200;
+  margin: 0;
 }
+
+nav {
+  display: flex;
+  align-items: center;
+}
+
+nav a, nav button {
+  color: white;
+  text-decoration: none;
+  margin: 0 10px;
+  font-family: "Arial", sans-serif;
+  font-size: 1em;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+nav a:hover, nav button:hover {
+  color: #ffdd57;
+}
+
+button {
+  padding: 8px 15px;
+  border-radius: 4px;
+}
+
 
 /* Footer css */
 footer {
